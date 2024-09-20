@@ -57,20 +57,46 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
-#define S0_Pin GPIO_PIN_0
-#define S0_GPIO_Port GPIOB
-#define S1_Pin GPIO_PIN_1
-#define S1_GPIO_Port GPIOB
-#define S2_Pin GPIO_PIN_2
-#define S2_GPIO_Port GPIOB
-#define S3_Pin GPIO_PIN_3
+#define A_Pin GPIO_PIN_0
+#define A_GPIO_Port GPIOB
+#define B_Pin GPIO_PIN_1
+#define B_GPIO_Port GPIOB
+#define C_Pin GPIO_PIN_2
+#define C_GPIO_Port GPIOB
+#define S3_Pin GPIO_PIN_10
 #define S3_GPIO_Port GPIOB
-#define S4_Pin GPIO_PIN_4
+#define S4_Pin GPIO_PIN_11
 #define S4_GPIO_Port GPIOB
-#define S5_Pin GPIO_PIN_5
+#define S5_Pin GPIO_PIN_12
 #define S5_GPIO_Port GPIOB
-#define S6_Pin GPIO_PIN_6
+#define S6_Pin GPIO_PIN_13
 #define S6_GPIO_Port GPIOB
+#define RED_1_Pin GPIO_PIN_8
+#define RED_1_GPIO_Port GPIOA
+#define GREEN_1_Pin GPIO_PIN_9
+#define GREEN_1_GPIO_Port GPIOA
+#define YELLOW_1_Pin GPIO_PIN_10
+#define YELLOW_1_GPIO_Port GPIOA
+#define RED_2_Pin GPIO_PIN_11
+#define RED_2_GPIO_Port GPIOA
+#define GREEN_2_Pin GPIO_PIN_12
+#define GREEN_2_GPIO_Port GPIOA
+#define YELLOW_2_Pin GPIO_PIN_13
+#define YELLOW_2_GPIO_Port GPIOA
+#define D_Pin GPIO_PIN_3
+#define D_GPIO_Port GPIOB
+#define E_Pin GPIO_PIN_4
+#define E_GPIO_Port GPIOB
+#define F_Pin GPIO_PIN_5
+#define F_GPIO_Port GPIOB
+#define G_Pin GPIO_PIN_6
+#define G_GPIO_Port GPIOB
+#define S0_Pin GPIO_PIN_7
+#define S0_GPIO_Port GPIOB
+#define S1_Pin GPIO_PIN_8
+#define S1_GPIO_Port GPIOB
+#define S2_Pin GPIO_PIN_9
+#define S2_GPIO_Port GPIOB
 
 /* USER CODE BEGIN Private defines */
 
