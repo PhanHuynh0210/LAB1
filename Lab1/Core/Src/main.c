@@ -18,7 +18,6 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
-
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 
@@ -49,12 +48,12 @@
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 /* USER CODE BEGIN PFP */
-
+void display7SEG(int num);
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-int  flag = 0;
+int counter = 0;
 /* USER CODE END 0 */
 
 /**
@@ -90,34 +89,18 @@ int main(void)
 
   /* USER CODE END 2 */
 
+
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-      /* USER CODE END WHILE */
-      switch (flag)
-      {
-          case 0:
-              HAL_GPIO_WritePin(GPIOA, LED_RED_Pin, GPIO_PIN_RESET);
-              HAL_GPIO_WritePin(GPIOA, LED_YELLOW_Pin, GPIO_PIN_SET);
-              flag = 1;
-              break;
-
-          case 1:
-              HAL_GPIO_WritePin(GPIOA, LED_RED_Pin, GPIO_PIN_SET);
-              HAL_GPIO_WritePin(GPIOA, LED_YELLOW_Pin, GPIO_PIN_RESET);
-              flag = 0;
-              break;
-
-          default:
-              break;
-      }
-
-      HAL_Delay(2000);
-      /* USER CODE BEGIN 3 */
+    /* USER CODE END WHILE */
+	  if (counter >= 10) counter = 0;
+	     display7SEG(counter++);
+	     HAL_Delay(1000);
+    /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
-
 }
 
 /**
@@ -168,24 +151,53 @@ static void MX_GPIO_Init(void)
 /* USER CODE END MX_GPIO_Init_1 */
 
   /* GPIO Ports Clock Enable */
-  __HAL_RCC_GPIOA_CLK_ENABLE();
+  __HAL_RCC_GPIOB_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOA, LED_RED_Pin|LED_YELLOW_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOB, S0_Pin|S1_Pin|S2_Pin|S3_Pin
+                          |S4_Pin|S5_Pin|S6_Pin, GPIO_PIN_RESET);
 
-  /*Configure GPIO pins : LED_RED_Pin LED_YELLOW_Pin */
-  GPIO_InitStruct.Pin = LED_RED_Pin|LED_YELLOW_Pin;
+  /*Configure GPIO pins : S0_Pin S1_Pin S2_Pin S3_Pin
+                           S4_Pin S5_Pin S6_Pin */
+  GPIO_InitStruct.Pin = S0_Pin|S1_Pin|S2_Pin|S3_Pin
+                          |S4_Pin|S5_Pin|S6_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
 /* USER CODE BEGIN MX_GPIO_Init_2 */
 /* USER CODE END MX_GPIO_Init_2 */
 }
 
 /* USER CODE BEGIN 4 */
+const long long digitToSegment[] = {
+     0b00111111, // 0
+     0b00000110, // 1
+     0b01011011, // 2
+     0b01001111, // 3
+     0b01100110, // 4
+     0b01101101, // 5
+     0b01111101, // 6
+     0b00000111, // 7
+     0b01111111, // 8
+     0b01101111  // 9
+ };
 
+ void display7SEG(int num) {
+     if (num < 0 || num > 9) {
+         return;
+     }
+     long long segments = digitToSegment[num];
+
+     HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0, (segments & (1 << 0)) ? GPIO_PIN_RESET : GPIO_PIN_SET); // Segment a
+     HAL_GPIO_WritePin(GPIOB, GPIO_PIN_1, (segments & (1 << 1)) ? GPIO_PIN_RESET : GPIO_PIN_SET); // Segment b
+     HAL_GPIO_WritePin(GPIOB, GPIO_PIN_2, (segments & (1 << 2)) ? GPIO_PIN_RESET : GPIO_PIN_SET); // Segment c
+     HAL_GPIO_WritePin(GPIOB, GPIO_PIN_3, (segments & (1 << 3)) ? GPIO_PIN_RESET : GPIO_PIN_SET); // Segment d
+     HAL_GPIO_WritePin(GPIOB, GPIO_PIN_4, (segments & (1 << 4)) ? GPIO_PIN_RESET : GPIO_PIN_SET); // Segment e
+     HAL_GPIO_WritePin(GPIOB, GPIO_PIN_5, (segments & (1 << 5)) ? GPIO_PIN_RESET : GPIO_PIN_SET); // Segment f
+     HAL_GPIO_WritePin(GPIOB, GPIO_PIN_6, (segments & (1 << 6)) ? GPIO_PIN_RESET : GPIO_PIN_SET); // Segment g
+ }
 /* USER CODE END 4 */
 
 /**
